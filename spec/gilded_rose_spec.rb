@@ -1,4 +1,4 @@
-require './gilded_rose'
+require './lib/gilded_rose'
 
 describe GildedRose do
 
@@ -6,7 +6,7 @@ describe GildedRose do
     it "does not change the name" do
       items = [Item.new("foo", 0, 0)]
       GildedRose.new(items).update_quality()
-      expect(items[0].name).to eq "fixme"
+      expect(items[0].name).to eq "foo"
     end
   end
 
@@ -19,6 +19,14 @@ describe GildedRose do
   end
 
   describe "update_quality" do
+    it "Sell in reduces by 1 every day" do
+      items = [Item.new("Normal", 2, 2)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].sell_in).to eq 1
+    end
+  end
+
+  describe "update_quality" do
     it "quality degrades twice as fast once sell by date has passed" do
       items = [Item.new("Normal", 0, 2)]
       GildedRose.new(items).update_quality()
@@ -27,18 +35,18 @@ describe GildedRose do
   end
 
   describe "update_quality" do
-    it "Aged Brie increases in Quality the older it gets" do
-      items = [Item.new("Aged Brie", 1, 1)]
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 2
-    end
-  end
-
-  describe "update_quality" do
     it "The quality of an item is never more than 50" do
       items = [Item.new("Aged Brie", 1, 50)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 50
+    end
+  end
+
+  describe "update_quality" do
+    it "Aged Brie increases in Quality the older it gets" do
+      items = [Item.new("Aged Brie", 1, 1)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 2
     end
   end
 
@@ -52,9 +60,9 @@ describe GildedRose do
 
   describe "update_quality" do
     it "“Sulfuras”, being a legendary item, never decreases in Quality" do
-      items = [Item.new("Sulfuras, Hand of Ragnaros", -1, 50)]
+      items = [Item.new("Sulfuras, Hand of Ragnaros", -1, 49)]
       GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 50
+      expect(items[0].quality).to eq 49
     end
   end
 
