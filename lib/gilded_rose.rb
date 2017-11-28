@@ -6,6 +6,40 @@ class GildedRose
     @items = items
   end
 
+  def update_quality()
+    @items.each do |item|
+       if item.name == "Aged Brie"
+         update_quality_Aged_Brie(item)
+       else
+      update_quality_normal(item)
+      end
+    end
+  end
+
+  def update_quality_Aged_Brie(item)
+      item.sell_in -= 1
+      return if item.quality >= 50
+      item.sell_in <= 0 ? item.quality += 2 : item.quality += 1
+  end
+
+  def update_quality_normal(item)
+      item.sell_in -= 1
+      return if item.quality == 0
+      return if item.quality >= 50
+      item.sell_in <= 0 ? item.quality -= 2 : item.quality -= 1
+  end
+
+  # def update_quality(item)
+  #   @items.each do |item|
+  #     item.sell_in -= 1
+  #     return if item.quality == 0
+  #     return if item.quality >= 50
+  #     item.sell_in <= 0 ? item.quality -= 2 : item.quality -= 1
+  #   end
+  # end
+
+end
+
 #   def update_quality()
 #     @items.each do |item|
 #       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
@@ -54,14 +88,3 @@ class GildedRose
 #     end
 #   end
 # end
-
-  def update_quality()
-    @items.each do |item|
-      item.sell_in -= 1
-      return if item.quality == 0
-      return if item.quality == 50
-      item.sell_in <= 0 ? item.quality -= 2 : item.quality -= 1
-    end
-  end
-
-end
