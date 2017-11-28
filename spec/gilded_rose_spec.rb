@@ -50,4 +50,12 @@ describe GildedRose do
     end
   end
 
+  describe "update_quality" do
+    it "“Sulfuras”, being a legendary item, never decreases in Quality" do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", -1, 50)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 50
+    end
+  end
+
 end
