@@ -87,7 +87,6 @@ class GildedRose
   def update_quality_Backstage(item)
       item.sell_in -= 1
       return if item.quality == 0
-      return if item.quality >= 50
       if item.sell_in > 10
         item.quality += 1
       elsif item.sell_in > 5
@@ -96,6 +95,9 @@ class GildedRose
         item.quality += 3
       else
         item.quality = 0
+      end
+      if item.quality >= 50
+        item.quality == 50
       end
   end
 
