@@ -1,44 +1,10 @@
-require 'item'
+require_relative 'item'
 
 class GildedRose
 
   def initialize(items)
     @items = items
   end
-
-  def update_quality()
-    @items.each do |item|
-       if item.name == "Aged Brie"
-         update_quality_Aged_Brie(item)
-       else
-      update_quality_normal(item)
-      end
-    end
-  end
-
-  def update_quality_Aged_Brie(item)
-      item.sell_in -= 1
-      return if item.quality >= 50
-      item.sell_in <= 0 ? item.quality += 2 : item.quality += 1
-  end
-
-  def update_quality_normal(item)
-      item.sell_in -= 1
-      return if item.quality == 0
-      return if item.quality >= 50
-      item.sell_in <= 0 ? item.quality -= 2 : item.quality -= 1
-  end
-
-  # def update_quality(item)
-  #   @items.each do |item|
-  #     item.sell_in -= 1
-  #     return if item.quality == 0
-  #     return if item.quality >= 50
-  #     item.sell_in <= 0 ? item.quality -= 2 : item.quality -= 1
-  #   end
-  # end
-
-end
 
 #   def update_quality()
 #     @items.each do |item|
@@ -88,3 +54,49 @@ end
 #     end
 #   end
 # end
+
+  def update_quality()
+    @items.each do |item|
+       if item.name == "Aged Brie"
+         update_quality_Aged_Brie(item)
+       elsif item.name == "Sulfuras, Hand of Ragnaros"
+           update_quality_Sulfuras(item)
+         elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+             update_quality_Backstage(item)
+           else
+          update_quality_normal(item)
+      end
+    end
+  end
+
+  def update_quality_Aged_Brie(item)
+      item.sell_in -= 1
+      return if item.quality >= 50
+      item.sell_in <= -1 ? item.quality += 2 : item.quality += 1
+  end
+
+  def update_quality_Sulfuras(item)
+  end
+
+  def update_quality_normal(item)
+      item.sell_in -= 1
+      return if item.quality == 0
+      return if item.quality >= 50
+      item.sell_in <= -1 ? item.quality -= 2 : item.quality -= 1
+  end
+  def update_quality_Backstage(item)
+      item.sell_in -= 1
+      return if item.quality == 0
+      return if item.quality >= 50
+      if item.sell_in > 10
+        item.quality += 1
+      elsif item.sell_in > 5
+        item.quality += 2
+      elsif item.sell_in > 0
+        item.quality += 3
+      else
+        item.quality = 0
+      end
+  end
+
+end
